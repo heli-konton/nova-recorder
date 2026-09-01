@@ -1,0 +1,16 @@
+[Unit]
+Description=Nova Recorder - VAD-gated audio capture
+After=sound.target network.target
+
+[Service]
+Type=simple
+User=nova
+Group=audio
+ExecStart=/opt/nova-recorder/venv/bin/python3 /opt/nova-recorder/pi/recorder/vad_recorder.py
+Restart=on-failure
+RestartSec=5
+RuntimeDirectory=nova-recorder
+RuntimeDirectoryMode=0770
+
+[Install]
+WantedBy=multi-user.target

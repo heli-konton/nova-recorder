@@ -1,0 +1,34 @@
+# Copy to /etc/nova-recorder/config.yaml and edit.
+
+device_id: "desk-01"          # identifies this recorder to Nova HQ
+
+audio:
+  sample_rate: 16000           # Hz — mono, matches whisper's native rate
+  input_device: null           # null = system default input; set to a name
+                                # substring (e.g. "USB") once the mic is in,
+                                # see `python3 -m sounddevice` to list devices
+  frame_ms: 30                 # webrtcvad requires 10/20/30ms frames
+  vad_aggressiveness: 2        # 0 (least aggressive) - 3 (most aggressive)
+  pre_roll_ms: 800             # audio kept from *before* speech is detected
+  end_silence_ms: 1200         # silence needed to close out a segment
+  min_segment_ms: 400          # discard segments shorter than this (coughs, taps)
+  opus_bitrate_k: 24
+
+paths:
+  segments_dir: /var/lib/nova-recorder/segments
+  uploaded_dir: /var/lib/nova-recorder/uploaded
+  state_file: /run/nova-recorder/state.json
+  cmd_fifo: /run/nova-recorder/cmd.fifo
+
+upload:
+  hq_url: "http://nova-hq:8770"   # Tailscale MagicDNS hostname of Nova HQ
+  api_key: "CHANGE-ME"            # shared secret, must match hq/.env
+  retry_attempts: 5
+  retry_backoff_s: 10
+  delete_after_upload: false      # false = move to uploaded_dir; true = delete
+
+ui:
+  fb_device: /dev/fb1          # framebuffer the SPI screen presents as
+  touch_device: null           # null = auto-detect via evdev; else /dev/input/eventN
+  screen_size: [480, 320]      # width, height — OSOYOO 3.5" is 480x320
+  rotate: 0                    # 0/90/180/270

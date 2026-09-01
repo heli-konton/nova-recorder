@@ -1,0 +1,19 @@
+[Unit]
+Description=Nova Recorder - touchscreen kiosk UI
+After=nova-recorder.service graphical.target
+Wants=nova-recorder.service
+
+[Service]
+Type=simple
+User=nova
+Group=video
+Environment=SDL_VIDEODRIVER=fbcon
+Environment=SDL_FBDEV=/dev/fb1
+Environment=SDL_NOMOUSE=1
+SupplementaryGroups=input tty
+ExecStart=/opt/nova-recorder/venv/bin/python3 /opt/nova-recorder/pi/ui/kiosk.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

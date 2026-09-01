@@ -1,0 +1,22 @@
+services:
+  ingest:
+    build: ./ingest
+    container_name: nova-hq-ingest
+    network_mode: host   # reachable at the host's Tailscale IP/hostname:INGEST_PORT
+    env_file: .env
+    volumes:
+      - ./data:/data
+    restart: unless-stopped
+
+  processor:
+    build: ./process
+    container_name: nova-hq-processor
+    env_file: .env
+    volumes:
+      - ./data:/data
+      - hf-cache:/root/.cache/huggingface   # model weights persist across restarts
+    restart: unless-stopped
+    # no exposed ports — it only reads /data, no network service of its own
+
+volumes:
+  hf-cache:

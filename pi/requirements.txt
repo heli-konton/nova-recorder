@@ -1,0 +1,8 @@
+sounddevice==0.4.7
+# webrtcvad's original PyPI build fails on current setuptools/distutils
+# (confirmed while smoke-testing this repo) — webrtcvad-wheels is the same
+# API (`import webrtcvad`) with a maintained prebuilt wheel.
+webrtcvad-wheels==2.0.11.post1
+numpy==1.26.4
+PyYAML==6.0.1
+requests==2.32.3

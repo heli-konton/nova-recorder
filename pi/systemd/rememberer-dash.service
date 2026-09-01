@@ -1,0 +1,13 @@
+[Unit]
+Description=Rememberer Pi 3.5 inch Display Dashboard
+After=multi-user.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/python3 /home/dan/screen_dash.py
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,8 @@
+# Heavy — this is the one part of the stack you won't run today. First
+# `docker compose build processor` on Nova HQ will take a while (torch +
+# model downloads on first use). CPU-only by default; swap the torch line
+# for a CUDA build if Nova HQ has a GPU.
+torch==2.4.1
+whisperx==3.3.1
+pyannote.audio==3.3.2
+anthropic==0.34.2

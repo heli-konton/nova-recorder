@@ -1,0 +1,10 @@
+[Unit]
+Description=Nova Recorder - daily upload to Nova HQ
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=nova
+Group=audio
+ExecStart=/opt/nova-recorder/venv/bin/python3 /opt/nova-recorder/pi/uploader/daily_upload.py
